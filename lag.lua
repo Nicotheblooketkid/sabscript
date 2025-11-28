@@ -1,12 +1,17 @@
--- Client-Side Permanent Lag Simulator (Auto-Start)
+-- Client-Side Permanent Lag Simulator (F Key to Start)
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
 
 local LocalPlayer = Players.LocalPlayer
 
 -- Lag variables
 local lagConnections = {}
 local createdObjects = {}
+local lagStarted = false
+
+-- Keybind settings
+local TOGGLE_KEY = Enum.KeyCode.F
 
 -- Intensive math calculations to cause lag
 local function intensiveCalculation()
@@ -88,6 +93,9 @@ end
 
 -- Start permanent lag effects
 local function startPermanentLag()
+    if lagStarted then return end -- Prevent multiple starts
+    
+    lagStarted = true
     print("🔄 PERMANENT LAG SIMULATOR: Starting infinite client-side lag...")
     
     -- Method 1: Intensive calculation loop
@@ -157,17 +165,26 @@ local function startPermanentLag()
     print("🛡️  Only affects your client - others are safe")
 end
 
--- Auto-start lag on script execution
-startPermanentLag()
+-- Keybind handler
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    
+    if input.KeyCode == TOGGLE_KEY and not lagStarted then
+        startPermanentLag()
+    end
+end)
 
--- Restart lag if character respawns
+-- Restart lag effects if character respawns (after lag has been started)
 LocalPlayer.CharacterAdded:Connect(function()
-    wait(1) -- Wait for character to fully load
-    createParticleStorm()
+    if lagStarted then
+        wait(1) -- Wait for character to fully load
+        createParticleStorm()
+    end
 end)
 
 -- Initial print
 print("🎮 Permanent Client Lag Simulator Loaded!")
-print("🔥 LAG STARTED AUTOMATICALLY")
-print("⚠️  NO TOGGLE - This will lag forever!")
+print("🔑 Press F to START permanent lag")
+print("⚠️  Once started, it will lag FOREVER!")
 print("💡 Only way to stop: Close game or rejoin server")
+print("🛡️  Only affects your client - others are safe")
