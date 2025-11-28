@@ -1,4 +1,4 @@
--- Client-Side Permanent Lag Simulator with GUI
+-- Laser Lag Simulator with GUI (Z Key)
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
@@ -16,7 +16,7 @@ local ACTIVATE_KEY = Enum.KeyCode.Z
 
 -- Create main UI
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "LagSimulatorUI"
+ScreenGui.Name = "LaserLagUI"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
@@ -52,7 +52,7 @@ HeaderCorner.Parent = Header
 
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, 0, 1, 0)
-Title.Text = "PERMANENT LAG SIM"
+Title.Text = "LASER LAG"
 Title.TextColor3 = Color3.fromRGB(255, 80, 80)
 Title.BackgroundTransparency = 1
 Title.Font = Enum.Font.GothamBold
@@ -256,14 +256,14 @@ end
 -- Start permanent lag effects
 local function startPermanentLag()
     if isLagging then 
-        print("⚠️  LAG SIMULATOR: Already active!")
+        print("⚠️  LASER LAG: Already active!")
         return 
     end
     
     isLagging = true
     updateUI(true)
     
-    print("🔄 LAG SIMULATOR: Starting PERMANENT client-side lag...")
+    print("🔄 LASER LAG: Starting PERMANENT client-side lag...")
     print("⚠️  WARNING: This will NOT stop until you reset/rejoin!")
     
     -- Method 1: Intensive calculation loop
@@ -328,7 +328,7 @@ local function startPermanentLag()
     end)
     table.insert(lagConnections, instanceConnection)
     
-    print("❌ LAG SIMULATOR: PERMANENTLY ACTIVE")
+    print("❌ LASER LAG: PERMANENTLY ACTIVE")
     print("🔄 Reset character or rejoin to stop lag")
 end
 
@@ -376,7 +376,7 @@ LocalPlayer.CharacterAdded:Connect(function()
         end
         createdObjects = {}
         
-        print("🔄 LAG SIMULATOR: Cleared on respawn")
+        print("🔄 LASER LAG: Cleared on respawn")
     end
 end)
 
@@ -406,7 +406,7 @@ UserInputService.InputChanged:Connect(function(input)
 end)
 
 -- Initial print
-print("🎮 Permanent Client Lag Simulator Loaded!")
+print("🎮 Laser Lag Simulator Loaded!")
 print("🔑 Press Z or click toggle to activate PERMANENT lag")
 print("⚠️  This will make your game EXTREMELY laggy")
 print("🔄 Only way to stop: Reset or Rejoin")
